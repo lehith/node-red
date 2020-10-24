@@ -42,13 +42,6 @@
         "info": ""
     },
     {
-        "id": "46162a38.a20e04",
-        "type": "tab",
-        "label": "Kitchen11",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "5d7e112b.27504",
         "type": "tab",
         "label": "Bathroom",
@@ -12414,20 +12407,5 @@
         "x": 560,
         "y": 2040,
         "wires": []
-    },
-    {
-        "id": "be286b47.433a98",
-        "type": "mqtt in",
-        "z": "13ce9b43.cfce65",
-        "name": "",
-        "topic": "Openhab_VAR/Bathroom/manual_lamp_on",
-        "qos": "0",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 210,
-        "y": 2080,
-        "wires": [
-            []
-        ]
     }
 ]
