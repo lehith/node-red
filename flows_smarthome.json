@@ -84,6 +84,13 @@
         "info": ""
     },
     {
+        "id": "c2937a8e.17e8e8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "5101c6e3.603738",
         "type": "mqtt-broker",
         "name": "MQTT local",
