@@ -12346,51 +12346,6 @@
         ]
     },
     {
-        "id": "5cdb273a.2e3788",
-        "type": "inject",
-        "z": "664f6067.c9a87",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 990,
-        "y": 100,
-        "wires": [
-            [
-                "ac633cb4.0ac34"
-            ]
-        ]
-    },
-    {
-        "id": "ac633cb4.0ac34",
-        "type": "debug",
-        "z": "664f6067.c9a87",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1200,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "ce388c04.541ac",
         "type": "inject",
         "z": "ba1574eb.008cc",
