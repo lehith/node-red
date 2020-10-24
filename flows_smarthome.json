@@ -8031,8 +8031,7 @@
         "wires": [
             [
                 "7c0e4af4.94acdc",
-                "f04fcd1a.afbc",
-                "245d289b.576638"
+                "f04fcd1a.afbc"
             ]
         ]
     },
@@ -12405,7 +12404,7 @@
         "propertyType": "global",
         "rules": [
             {
-                "t": "eq",
+                "t": "neq",
                 "v": "true",
                 "vt": "str"
             }
@@ -12413,33 +12412,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 900,
-        "y": 1100,
-        "wires": [
-            [
-                "ad939a4c.1ea358"
-            ]
-        ]
-    },
-    {
-        "id": "245d289b.576638",
-        "type": "switch",
-        "z": "5d7e112b.27504",
-        "name": "Evening",
-        "property": "Evening",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "true",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 900,
-        "y": 1140,
+        "x": 1030,
+        "y": 1000,
         "wires": [
             [
                 "ad939a4c.1ea358"
