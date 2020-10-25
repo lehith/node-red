@@ -11929,6 +11929,7 @@
         "id": "f04fcd1a.afbc",
         "type": "switch",
         "z": "5d7e112b.27504",
+        "d": true,
         "name": "Night",
         "property": "Night",
         "propertyType": "global",
