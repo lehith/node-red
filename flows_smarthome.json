@@ -2622,7 +2622,8 @@
         "y": 1180,
         "wires": [
             [
-                "b93f0f28.e10fa8"
+                "12872305.e37eed",
+                "bc16f4b2.8f2248"
             ]
         ]
     },
@@ -6060,30 +6061,6 @@
         "x": 1530,
         "y": 1040,
         "wires": []
-    },
-    {
-        "id": "b93f0f28.e10fa8",
-        "type": "delay",
-        "z": "4e2c8d9b.9d5c84",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "2",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1800,
-        "y": 1180,
-        "wires": [
-            [
-                "12872305.e37eed",
-                "bc16f4b2.8f2248"
-            ]
-        ]
     },
     {
         "id": "849b8efc.caa3",
