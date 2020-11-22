@@ -49,17 +49,17 @@
         "info": ""
     },
     {
-        "id": "ba1574eb.008cc",
-        "type": "tab",
-        "label": "Logs",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "664f6067.c9a87",
         "type": "tab",
         "label": "Xiaomi GW",
         "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ba1574eb.008cc",
+        "type": "tab",
+        "label": "Logs",
+        "disabled": true,
         "info": ""
     },
     {
@@ -5646,6 +5646,8 @@
         "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n\n\n\nvar battery = null;\nvar voltage = null;\nvar linkquality=null;\nvar click = null;\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"no state\"});\n\n\n\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.linkquality) {\n    if (data.linkquality > 100){\n    linkquality = {\"payload\": 4};\n    }\n    else if (data.linkquality > 80){\n    linkquality = {\"payload\": 3};\n    }\n    else if (data.linkquality > 50){\n    linkquality = {\"payload\": 2};\n    }\n    else if (data.linkquality > 30){\n    linkquality = {\"payload\": 1};\n    }\n    else {\n    linkquality = {\"payload\": 0};\n    }\n}\n\n\n\nif (data.click == \"single\") {\n    click = {\"payload\": \"single\"};\n    node.status({fill:\"red\",shape:\"dot\",text:\"single\"}); \n}\nif (data.click == \"double\") {\n    click = {\"payload\": \"double\"};\n    node.status({fill:\"green\",shape:\"dot\",text:\"double\"}); \n}\nif (data.click == \"long_release\") {\n    click = {\"payload\": \"long\"};\n    node.status({fill:\"blue\",shape:\"dot\",text:\"long\"}); \n}\n\n\n\n\nnode.send([ voltage, linkquality,battery,click]);\n",
         "outputs": 4,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 150,
         "y": 340,
         "wires": [
@@ -5758,7 +5760,9 @@
         "x": 170,
         "y": 540,
         "wires": [
-            [],
+            [
+                "1cd9a78c.e9d868"
+            ],
             [
                 "61d13f58.a7c39"
             ],
@@ -6888,6 +6892,8 @@
         "func": "var state=flow.get('relay_1')\n\nif(state == \"ON\")\n{\n    node.status({fill:\"red\",shape:\"dot\" ,text: \"OFF\" });\n    return {\"payload\": \"OFF\"};\n}\nelse {\n    node.status({fill:\"green\",shape:\"dot\" ,text: \"ON\" });\n    return {\"payload\": \"ON\"};\n    }\n\n\n\n\n\n\n\n\n\n\n",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 1320,
         "y": 460,
         "wires": [
@@ -11977,12 +11983,11 @@
         "qos": "0",
         "datatype": "auto",
         "broker": "5101c6e3.603738",
-        "x": 210,
-        "y": 2020,
+        "x": 150,
+        "y": 1935,
         "wires": [
             [
-                "f98b86d5.c18738",
-                "e4c9fb46.26d848"
+                "f98b86d5.c18738"
             ]
         ]
     },
@@ -11995,8 +12000,8 @@
         "qos": "0",
         "datatype": "auto",
         "broker": "5101c6e3.603738",
-        "x": 140,
-        "y": 2140,
+        "x": 158,
+        "y": 2319,
         "wires": [
             [
                 "7326e4fe.76a13c"
@@ -12012,8 +12017,8 @@
         "qos": "2",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 800,
-        "y": 2140,
+        "x": 818,
+        "y": 2319,
         "wires": []
     },
     {
@@ -12059,8 +12064,7 @@
         "y": 1840,
         "wires": [
             [
-                "eb9c6ac2.76fe98",
-                "f036c03f.449e8"
+                "eb9c6ac2.76fe98"
             ]
         ]
     },
@@ -12087,8 +12091,7 @@
         "y": 1900,
         "wires": [
             [
-                "eb9c6ac2.76fe98",
-                "f9612f6f.fc7c9"
+                "eb9c6ac2.76fe98"
             ]
         ]
     },
@@ -12124,7 +12127,7 @@
         "type": "debug",
         "z": "13ce9b43.cfce65",
         "name": "ESP_Kitchen_Boiler_set",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -12153,8 +12156,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 450,
-        "y": 2140,
+        "x": 468,
+        "y": 2319,
         "wires": [
             [
                 "c253829c.4ed3a"
@@ -12180,8 +12183,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 210,
-        "y": 1940,
+        "x": 425,
+        "y": 2040,
         "wires": [
             [
                 "bead26d6.385848"
@@ -12323,20 +12326,6 @@
         ]
     },
     {
-        "id": "f036c03f.449e8",
-        "type": "debug",
-        "z": "13ce9b43.cfce65",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 1260,
-        "y": 1780,
-        "wires": []
-    },
-    {
         "id": "bead26d6.385848",
         "type": "time-switch",
         "z": "13ce9b43.cfce65",
@@ -12359,31 +12348,174 @@
         ]
     },
     {
-        "id": "f9612f6f.fc7c9",
-        "type": "debug",
-        "z": "13ce9b43.cfce65",
+        "id": "7a92c311.bb400c",
+        "type": "inject",
+        "z": "7fca8997.78ed68",
         "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 1240,
-        "y": 2020,
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "86400",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 200,
+        "y": 1140,
+        "wires": [
+            [
+                "c84acd5c.e9dfb"
+            ]
+        ]
+    },
+    {
+        "id": "c84acd5c.e9dfb",
+        "type": "mqtt out",
+        "z": "7fca8997.78ed68",
+        "name": "",
+        "topic": "mainrelay1/switch/restart/command",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 455,
+        "y": 1140,
         "wires": []
     },
     {
-        "id": "e4c9fb46.26d848",
-        "type": "debug",
+        "id": "1cd9a78c.e9d868",
+        "type": "change",
+        "z": "5d7e112b.27504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Bathroom_Switch_long",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 510,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7bd64fa9.ec518",
+        "type": "mqtt in",
         "z": "13ce9b43.cfce65",
         "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 560,
+        "topic": "zigbee2mqtt/Bathroom_Switch",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 165,
+        "y": 2216,
+        "wires": [
+            [
+                "b3323ad.4382dc8"
+            ]
+        ]
+    },
+    {
+        "id": "b3323ad.4382dc8",
+        "type": "function",
+        "z": "13ce9b43.cfce65",
+        "name": "Bathroom_Switch",
+        "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n\n\n\nvar battery = null;\nvar voltage = null;\nvar linkquality=null;\nvar click = null;\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"no state\"});\n\n\n\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.linkquality) {\n    if (data.linkquality > 100){\n    linkquality = {\"payload\": 4};\n    }\n    else if (data.linkquality > 80){\n    linkquality = {\"payload\": 3};\n    }\n    else if (data.linkquality > 50){\n    linkquality = {\"payload\": 2};\n    }\n    else if (data.linkquality > 30){\n    linkquality = {\"payload\": 1};\n    }\n    else {\n    linkquality = {\"payload\": 0};\n    }\n}\n\n\n\nif (data.click == \"single\") {\n    click = {\"payload\": \"single\"};\n    node.status({fill:\"red\",shape:\"dot\",text:\"single\"}); \n}\nif (data.click == \"double\") {\n    click = {\"payload\": \"double\"};\n    node.status({fill:\"green\",shape:\"dot\",text:\"double\"}); \n}\nif (data.click == \"long_release\") {\n    click = {\"payload\": \"long\"};\n    node.status({fill:\"blue\",shape:\"dot\",text:\"long\"}); \n}\n\n\n\n\nnode.send([ voltage, linkquality,battery,click]);\n",
+        "outputs": 4,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 405,
+        "y": 2216,
+        "wires": [
+            [],
+            [],
+            [],
+            [
+                "ac2ee5b9.eb34a8"
+            ]
+        ],
+        "outputLabels": [
+            "voltage",
+            "linkquality",
+            "battery",
+            "battery"
+        ]
+    },
+    {
+        "id": "ac2ee5b9.eb34a8",
+        "type": "switch",
+        "z": "13ce9b43.cfce65",
+        "name": "1 long -2 double -3 single",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "long",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "double",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "single",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 635,
+        "y": 2235,
+        "wires": [
+            [
+                "d1cd6d87.48baa"
+            ],
+            [],
+            []
+        ],
+        "outputLabels": [
+            "long",
+            "double",
+            "single"
+        ]
+    },
+    {
+        "id": "d1cd6d87.48baa",
+        "type": "function",
+        "z": "13ce9b43.cfce65",
+        "name": "filtr-ON-OFF",
+        "func": "var state=flow.get('Boiler_On')\n\nif(state == \"ON\")\n{\n    node.status({fill:\"red\",shape:\"dot\" ,text: \"OFF\" });\n    return {\"payload\": \"OFF\"};\n}\nelse {\n    node.status({fill:\"green\",shape:\"dot\" ,text: \"ON\" });\n    return {\"payload\": \"ON\"};\n    }\n\n\n\n\n\n\n\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 160,
         "y": 2040,
-        "wires": []
+        "wires": [
+            [
+                "f98b86d5.c18738"
+            ]
+        ]
     }
 ]
