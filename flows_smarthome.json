@@ -63,6 +63,13 @@
         "info": ""
     },
     {
+        "id": "e797dfd4.e67cc",
+        "type": "tab",
+        "label": "BeedRoom",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "ee7c9811.043e18",
         "type": "tab",
         "label": "TestFlow",
@@ -1133,11 +1140,11 @@
         "type": "mqtt in",
         "z": "fc938117.ce447",
         "name": "",
-        "topic": "mainrelay1/switch/alisa/state",
+        "topic": "mainrelay1/switch/relay_4/state",
         "qos": "0",
         "datatype": "auto",
         "broker": "5101c6e3.603738",
-        "x": 137,
+        "x": 147,
         "y": 1640,
         "wires": [
             [
@@ -1205,11 +1212,11 @@
         "type": "mqtt out",
         "z": "fc938117.ce447",
         "name": "",
-        "topic": "mainrelay1/switch/alisa/command",
+        "topic": "mainrelay1/switch/relay_4/command",
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 2417,
+        "x": 2427,
         "y": 1500,
         "wires": []
     },
@@ -1394,7 +1401,8 @@
         "wires": [
             [
                 "979ee997.cf5348",
-                "447c6467.858eac"
+                "447c6467.858eac",
+                "85117ce0.4b9b"
             ]
         ]
     },
@@ -1755,23 +1763,6 @@
         ]
     },
     {
-        "id": "9a60b5eb.7f1388",
-        "type": "mqtt in",
-        "z": "13ce9b43.cfce65",
-        "name": "",
-        "topic": "mainrelay1/switch/kuhnia/state",
-        "qos": "0",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 177,
-        "y": 1380,
-        "wires": [
-            [
-                "ed685545.560218"
-            ]
-        ]
-    },
-    {
         "id": "83daa094.330ab",
         "type": "mqtt out",
         "z": "13ce9b43.cfce65",
@@ -1831,11 +1822,11 @@
         "type": "mqtt out",
         "z": "13ce9b43.cfce65",
         "name": "",
-        "topic": "mainrelay1/switch/kuhnia/command",
+        "topic": "mainrelay1/switch/relay_2/command",
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 2097,
+        "x": 2107,
         "y": 1280,
         "wires": []
     },
@@ -2020,7 +2011,8 @@
         "wires": [
             [
                 "8388f996.853bf8",
-                "cbd1799e.bfe9a8"
+                "cbd1799e.bfe9a8",
+                "3ee56fb7.403af"
             ]
         ]
     },
@@ -2585,23 +2577,6 @@
         ]
     },
     {
-        "id": "f2e36a63.9e7b48",
-        "type": "mqtt in",
-        "z": "4e2c8d9b.9d5c84",
-        "name": "",
-        "topic": "mainrelay1/switch/zal_1/state",
-        "qos": "0",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 160,
-        "y": 1320,
-        "wires": [
-            [
-                "d4f51382.5c1b4"
-            ]
-        ]
-    },
-    {
         "id": "17d070ea.64a01f",
         "type": "switch",
         "z": "4e2c8d9b.9d5c84",
@@ -2719,11 +2694,11 @@
         "type": "mqtt out",
         "z": "4e2c8d9b.9d5c84",
         "name": "",
-        "topic": "mainrelay1/switch/zal_1/command",
+        "topic": "mainrelay1/switch/relay_3/command",
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 2060,
+        "x": 2070,
         "y": 1180,
         "wires": []
     },
@@ -9539,8 +9514,8 @@
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 720,
-        "y": 140,
+        "x": 790,
+        "y": 45,
         "wires": []
     },
     {
@@ -9567,8 +9542,8 @@
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 700,
-        "y": 200,
+        "x": 785,
+        "y": 90,
         "wires": []
     },
     {
@@ -9580,8 +9555,8 @@
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 1030,
-        "y": 40,
+        "x": 1045,
+        "y": 150,
         "wires": []
     },
     {
@@ -9593,8 +9568,8 @@
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 1040,
-        "y": 80,
+        "x": 1055,
+        "y": 190,
         "wires": []
     },
     {
@@ -9606,112 +9581,8 @@
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 1030,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "463e8eac.186ae",
-        "type": "function",
-        "z": "fc938117.ce447",
-        "name": "KidsRoom_HT2",
-        "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n//var data = payload.data;\n\nvar temp = null;\nvar humidity = null;\nvar pressure = null;\nvar voltage = null;\nvar linkquality=null;\nvar battery=null\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"battery\"});\nif (data.temperature){\n    data.temperature = Number(data.temperature)\n    temp = {\"payload\": data.temperature};\n}\nif (data.humidity) {\n    data.humidity = Number(data.humidity)\n    humidity = {\"payload\": data.humidity};\n    \n}\nif (data.pressure) {\n    data.pressure = Number(Math.round(data.pressure * 0.750063755419211 / 100));\n    pressure = {\"payload\": data.pressure};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.linkquality) {\n    if (data.linkquality > 100){\n    linkquality = {\"payload\": 4};\n    }\n    else if (data.linkquality > 80){\n    linkquality = {\"payload\": 3};\n    }\n    else if (data.linkquality > 50){\n    linkquality = {\"payload\": 2};\n    }\n    else if (data.linkquality > 30){\n    linkquality = {\"payload\": 1};\n    }\n    else {\n    linkquality = {\"payload\": 0};\n    }\n}\nif (data.voltage) {\n    if (data.voltage < 2500) {\n        node.status({fill:\"red\",shape:\"dot\",text:data.voltage});\n    } \n    else if (data.voltage < 2900) {\n        node.status({fill:\"yellow\",shape:\"dot\",text:data.voltage});\n    } \n    else {\n        node.status({fill:\"green\",shape:\"dot\",text:data.voltage});\n    }\n}\n\nnode.send([temp, humidity, pressure, voltage, linkquality,battery]);",
-        "outputs": 6,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 380,
-        "y": 240,
-        "wires": [
-            [
-                "dcb07a0b.38c6b8",
-                "23f1cd97.7200a2"
-            ],
-            [
-                "dcb07a0b.38c6b8",
-                "f6d41aea.b261f8"
-            ],
-            [],
-            [
-                "4a519a14.817344"
-            ],
-            [
-                "2eeddf70.e9fa3"
-            ],
-            [
-                "ff59d737.cbe628"
-            ]
-        ]
-    },
-    {
-        "id": "9f042384.83982",
-        "type": "mqtt in",
-        "z": "fc938117.ce447",
-        "name": "",
-        "topic": "zigbee2mqtt/KidsRoom_HT2",
-        "qos": "0",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 160,
-        "y": 240,
-        "wires": [
-            [
-                "463e8eac.186ae"
-            ]
-        ]
-    },
-    {
-        "id": "dcb07a0b.38c6b8",
-        "type": "debug",
-        "z": "fc938117.ce447",
-        "name": "KidsRoom_HT2",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 380,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "4a519a14.817344",
-        "type": "mqtt out",
-        "z": "fc938117.ce447",
-        "name": "",
-        "topic": "Xiaomi/KidsRoom_HT2/voltage",
-        "qos": "0",
-        "retain": "true",
-        "broker": "5101c6e3.603738",
-        "x": 1030,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "2eeddf70.e9fa3",
-        "type": "mqtt out",
-        "z": "fc938117.ce447",
-        "name": "",
-        "topic": "Xiaomi/KidsRoom_HT2/linkquality",
-        "qos": "0",
-        "retain": "true",
-        "broker": "5101c6e3.603738",
-        "x": 1040,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "ff59d737.cbe628",
-        "type": "mqtt out",
-        "z": "fc938117.ce447",
-        "name": "",
-        "topic": "Xiaomi/KidsRoom_HT2/battery",
-        "qos": "0",
-        "retain": "true",
-        "broker": "5101c6e3.603738",
-        "x": 1030,
-        "y": 280,
+        "x": 1045,
+        "y": 230,
         "wires": []
     },
     {
@@ -12517,5 +12388,884 @@
                 "f98b86d5.c18738"
             ]
         ]
+    },
+    {
+        "id": "7962fa0b.9d70c4",
+        "type": "mqtt in",
+        "z": "fc938117.ce447",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_6/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 145,
+        "y": 1725,
+        "wires": [
+            [
+                "defbbe56.3cd29"
+            ]
+        ]
+    },
+    {
+        "id": "85117ce0.4b9b",
+        "type": "mqtt out",
+        "z": "fc938117.ce447",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_6/command",
+        "qos": "0",
+        "retain": "false",
+        "broker": "5101c6e3.603738",
+        "x": 2430,
+        "y": 1575,
+        "wires": []
+    },
+    {
+        "id": "f8ef0754.3f9698",
+        "type": "mqtt in",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_1/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 190,
+        "y": 1365,
+        "wires": [
+            [
+                "ed685545.560218"
+            ]
+        ]
+    },
+    {
+        "id": "b95c969.7bbe068",
+        "type": "mqtt in",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_2/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 190,
+        "y": 1425,
+        "wires": [
+            [
+                "ed685545.560218"
+            ]
+        ]
+    },
+    {
+        "id": "3ee56fb7.403af",
+        "type": "mqtt out",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_1/command",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 2100,
+        "y": 1230,
+        "wires": []
+    },
+    {
+        "id": "a1e14a16.006888",
+        "type": "mqtt in",
+        "z": "4e2c8d9b.9d5c84",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_3/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 160,
+        "y": 1320,
+        "wires": [
+            [
+                "d4f51382.5c1b4"
+            ]
+        ]
+    },
+    {
+        "id": "fc728b54.f67da8",
+        "type": "function",
+        "z": "e797dfd4.e67cc",
+        "name": "LivingRoom_HT1",
+        "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n//var data = payload.data;\n\nvar temp = null;\nvar humidity = null;\nvar pressure = null;\nvar voltage = null;\nvar linkquality=null;\nvar battery=null;\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"battery\"});\nif (data.temperature){\n    data.temperature = Number(data.temperature)\n    temp = {\"payload\": data.temperature};\n}\nif (data.humidity) {\n    data.humidity = Number(data.humidity)\n    humidity = {\"payload\": data.humidity};\n    \n}\nif (data.pressure) {\n    data.pressure = Number(Math.round(data.pressure * 0.750063755419211 / 100));\n    pressure = {\"payload\": data.pressure};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.linkquality) {\n    if (data.linkquality > 100){\n    linkquality = {\"payload\": 4};\n    }\n    else if (data.linkquality > 80){\n    linkquality = {\"payload\": 3};\n    }\n    else if (data.linkquality > 50){\n    linkquality = {\"payload\": 2};\n    }\n    else if (data.linkquality > 30){\n    linkquality = {\"payload\": 1};\n    }\n    else {\n    linkquality = {\"payload\": 0};\n    }\n}\nif (data.voltage) {\n    if (data.voltage < 2500) {\n        node.status({fill:\"red\",shape:\"dot\",text:data.voltage});\n    } \n    else if (data.voltage < 2900) {\n        node.status({fill:\"yellow\",shape:\"dot\",text:data.voltage});\n    } \n    else {\n        node.status({fill:\"green\",shape:\"dot\",text:data.voltage});\n    }\n}\n\nnode.send([temp, humidity, pressure, voltage, linkquality,battery]);",
+        "outputs": 6,
+        "noerr": 0,
+        "x": 375,
+        "y": 105,
+        "wires": [
+            [
+                "ba1eb3be.304e2",
+                "8d27ff97.0aa0c"
+            ],
+            [
+                "9156df4d.4dbad",
+                "8d27ff97.0aa0c"
+            ],
+            [],
+            [
+                "4025fd3b.93c534"
+            ],
+            [
+                "d9d6be8b.8e7ab"
+            ],
+            [
+                "95e09a18.914a28"
+            ]
+        ]
+    },
+    {
+        "id": "ba1eb3be.304e2",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Temperature",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 720,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8d27ff97.0aa0c",
+        "type": "debug",
+        "z": "e797dfd4.e67cc",
+        "name": "BedRoom_HT1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 335,
+        "y": 30,
+        "wires": []
+    },
+    {
+        "id": "9156df4d.4dbad",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Humidity",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 830,
+        "y": 105,
+        "wires": []
+    },
+    {
+        "id": "4025fd3b.93c534",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Xiaomi/BedRoom_HT1/voltage",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1000,
+        "y": 150,
+        "wires": []
+    },
+    {
+        "id": "d9d6be8b.8e7ab",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Xiaomi/BedRoom_HT1/linkquality",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1010,
+        "y": 190,
+        "wires": []
+    },
+    {
+        "id": "95e09a18.914a28",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Xiaomi/BedRoom_HT1/battery",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1000,
+        "y": 230,
+        "wires": []
+    },
+    {
+        "id": "f0f34779.999858",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "zigbee2mqtt/BedRoom_HT1",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 145,
+        "y": 105,
+        "wires": [
+            [
+                "fc728b54.f67da8"
+            ]
+        ]
+    },
+    {
+        "id": "5ccaaeb2.1d9b7",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "BedRoom_auto_Heater",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 535,
+        "y": 480,
+        "wires": [
+            [
+                "7d1055b3.e5416c",
+                "7f2346be.743748"
+            ]
+        ]
+    },
+    {
+        "id": "7d1055b3.e5416c",
+        "type": "switch",
+        "z": "e797dfd4.e67cc",
+        "name": "ENABLE_AUTO",
+        "property": "BedRoom_auto_Heater",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 965,
+        "y": 560,
+        "wires": [
+            [],
+            [
+                "fc1bbdbf.d3737"
+            ]
+        ]
+    },
+    {
+        "id": "7f2346be.743748",
+        "type": "switch",
+        "z": "e797dfd4.e67cc",
+        "name": "DISABLE_AUTO",
+        "property": "BedRoom_auto_Heater",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 972,
+        "y": 480,
+        "wires": [
+            [
+                "9b8ac867.27a668"
+            ]
+        ]
+    },
+    {
+        "id": "a3fb7d43.ece31",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Auto_Heater",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 155,
+        "y": 480,
+        "wires": [
+            [
+                "5ccaaeb2.1d9b7"
+            ]
+        ]
+    },
+    {
+        "id": "800716ba.3e7ee8",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "BedRoom_Temperature",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 532,
+        "y": 620,
+        "wires": [
+            [
+                "7d1055b3.e5416c"
+            ]
+        ]
+    },
+    {
+        "id": "fc1bbdbf.d3737",
+        "type": "switch",
+        "z": "e797dfd4.e67cc",
+        "name": "KidsRoom_Window_CLOSED",
+        "property": "BedRoom_Window",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "CLOSED",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1205,
+        "y": 560,
+        "wires": [
+            [
+                "b769eb0a.a600c8"
+            ]
+        ]
+    },
+    {
+        "id": "97bb6bd7.b84258",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "BedRoom_Heater",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 532,
+        "y": 700,
+        "wires": [
+            [
+                "7d1055b3.e5416c",
+                "e0c0f9fc.e86468"
+            ]
+        ]
+    },
+    {
+        "id": "66090dc.7a85ef4",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Auto_Temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 172,
+        "y": 560,
+        "wires": [
+            [
+                "7d1055b3.e5416c"
+            ]
+        ]
+    },
+    {
+        "id": "ae8b947e.f1c398",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "BedRoom_Window",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 522,
+        "y": 400,
+        "wires": [
+            [
+                "7b8d53c4.7ddabc",
+                "7d1055b3.e5416c"
+            ]
+        ]
+    },
+    {
+        "id": "9b8ac867.27a668",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "OFF",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1663,
+        "y": 473,
+        "wires": [
+            [
+                "993210d4.f62ac"
+            ]
+        ]
+    },
+    {
+        "id": "a9cd8f39.efc57",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Temperature",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 152,
+        "y": 620,
+        "wires": [
+            [
+                "800716ba.3e7ee8"
+            ]
+        ]
+    },
+    {
+        "id": "b769eb0a.a600c8",
+        "type": "switch",
+        "z": "e797dfd4.e67cc",
+        "name": "REGULATOR",
+        "property": "BedRoom_Temperature",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "BedRoom_set_Temperature",
+                "vt": "flow"
+            },
+            {
+                "t": "lt",
+                "v": "BedRoom_set_Temperature",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1433,
+        "y": 560,
+        "wires": [
+            [
+                "9b8ac867.27a668"
+            ],
+            [
+                "3fdaf1bb.8bacae"
+            ]
+        ]
+    },
+    {
+        "id": "e0c0f9fc.e86468",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Heater1_on",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 972,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "f47a8747.b30228",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_5/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 132,
+        "y": 700,
+        "wires": [
+            [
+                "97bb6bd7.b84258"
+            ]
+        ]
+    },
+    {
+        "id": "12893e0d.540c62",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_7/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 130,
+        "y": 785,
+        "wires": [
+            [
+                "97bb6bd7.b84258"
+            ]
+        ]
+    },
+    {
+        "id": "88f894dc.8dc538",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Window",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 142,
+        "y": 400,
+        "wires": [
+            [
+                "ae8b947e.f1c398"
+            ]
+        ]
+    },
+    {
+        "id": "7b8d53c4.7ddabc",
+        "type": "switch",
+        "z": "e797dfd4.e67cc",
+        "name": "KidsRoom_Window_OPEN",
+        "property": "BedRoom_Window",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OPEN",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 962,
+        "y": 400,
+        "wires": [
+            [
+                "9b8ac867.27a668"
+            ]
+        ]
+    },
+    {
+        "id": "993210d4.f62ac",
+        "type": "switch",
+        "z": "e797dfd4.e67cc",
+        "name": "FILTR",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "BedRoom_Heater",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1863,
+        "y": 553,
+        "wires": [
+            [
+                "d74644e3.86a798"
+            ]
+        ]
+    },
+    {
+        "id": "3fdaf1bb.8bacae",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "ON",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1663,
+        "y": 620,
+        "wires": [
+            [
+                "993210d4.f62ac"
+            ]
+        ]
+    },
+    {
+        "id": "d74644e3.86a798",
+        "type": "trigger",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "nul",
+        "duration": "200",
+        "extend": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 2022,
+        "y": 553,
+        "wires": [
+            [
+                "91f3a349.889ed",
+                "b9700195.bcee1",
+                "d4e3c4c.8dc7b38"
+            ]
+        ]
+    },
+    {
+        "id": "e238b415.66b1a8",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Heater1_on_set",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 1613,
+        "y": 693,
+        "wires": [
+            [
+                "993210d4.f62ac"
+            ]
+        ]
+    },
+    {
+        "id": "91f3a349.889ed",
+        "type": "debug",
+        "z": "e797dfd4.e67cc",
+        "name": "BedRoom_Heater_set",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2362,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b9700195.bcee1",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_5/command",
+        "qos": "0",
+        "retain": "false",
+        "broker": "5101c6e3.603738",
+        "x": 2412,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "d4e3c4c.8dc7b38",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_7/command",
+        "qos": "0",
+        "retain": "false",
+        "broker": "5101c6e3.603738",
+        "x": 2415,
+        "y": 635,
+        "wires": []
+    },
+    {
+        "id": "4e89a67c.54a8b8",
+        "type": "inject",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "CLOSED",
+        "payloadType": "str",
+        "x": 330,
+        "y": 975,
+        "wires": [
+            [
+                "98d2c677.aa32d8"
+            ]
+        ]
+    },
+    {
+        "id": "98d2c677.aa32d8",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Window",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 710,
+        "y": 975,
+        "wires": []
+    },
+    {
+        "id": "c12c96e0.3dd108",
+        "type": "inject",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 320,
+        "y": 1050,
+        "wires": [
+            [
+                "1f97e8c7.f60d47"
+            ]
+        ]
+    },
+    {
+        "id": "1f97e8c7.f60d47",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Auto_Heater",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 720,
+        "y": 1050,
+        "wires": []
+    },
+    {
+        "id": "39c5c40.af61f3c",
+        "type": "inject",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "25",
+        "payloadType": "num",
+        "x": 305,
+        "y": 1125,
+        "wires": [
+            [
+                "d77c6476.21f0f8"
+            ]
+        ]
+    },
+    {
+        "id": "d77c6476.21f0f8",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Auto_Temperature",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 725,
+        "y": 1125,
+        "wires": []
     }
 ]
