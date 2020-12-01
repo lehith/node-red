@@ -10,7 +10,7 @@
         "id": "4565fe59.9cdce",
         "type": "tab",
         "label": "Energy",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -1225,7 +1225,7 @@
         "type": "debug",
         "z": "fc938117.ce447",
         "name": "KidsRoom_Heater1_set",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9809,6 +9809,7 @@
         "id": "ed5da743.74e768",
         "type": "http request",
         "z": "4565fe59.9cdce",
+        "d": true,
         "name": "",
         "method": "GET",
         "ret": "txt",
@@ -11838,11 +11839,11 @@
         "type": "mqtt out",
         "z": "13ce9b43.cfce65",
         "name": "",
-        "topic": "mainrelay1/switch/boiler/command",
+        "topic": "mainrelay1/switch/relay_8/command",
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 1900,
+        "x": 1910,
         "y": 1820,
         "wires": []
     },
@@ -11860,23 +11861,6 @@
         "wires": [
             [
                 "f98b86d5.c18738"
-            ]
-        ]
-    },
-    {
-        "id": "97b04467.626398",
-        "type": "mqtt in",
-        "z": "13ce9b43.cfce65",
-        "name": "",
-        "topic": "mainrelay1/switch/boiler/state",
-        "qos": "0",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 158,
-        "y": 2319,
-        "wires": [
-            [
-                "7326e4fe.76a13c"
             ]
         ]
     },
@@ -11999,7 +11983,7 @@
         "type": "debug",
         "z": "13ce9b43.cfce65",
         "name": "ESP_Kitchen_Boiler_set",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -12223,6 +12207,7 @@
         "id": "7a92c311.bb400c",
         "type": "inject",
         "z": "7fca8997.78ed68",
+        "d": true,
         "name": "",
         "props": [
             {
@@ -13059,7 +13044,7 @@
         "type": "debug",
         "z": "e797dfd4.e67cc",
         "name": "BedRoom_Heater1_set",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -13753,7 +13738,7 @@
         "type": "debug",
         "z": "e797dfd4.e67cc",
         "name": "BedRoom_Heater2_set",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -14079,7 +14064,7 @@
         "id": "21a4d9f1.712d46",
         "type": "change",
         "z": "e797dfd4.e67cc",
-        "name": "KidsRoom_set_Temp",
+        "name": "BedRoom_set_Temp",
         "rules": [
             {
                 "t": "set",
@@ -14729,7 +14714,7 @@
         "type": "debug",
         "z": "fc938117.ce447",
         "name": "KidsRoom_Heater2_set",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -14753,5 +14738,22 @@
         "x": 2413,
         "y": 2125,
         "wires": []
+    },
+    {
+        "id": "e2164781.fc57c8",
+        "type": "mqtt in",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "mainrelay1/switch/relay_8/state",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 160,
+        "y": 2400,
+        "wires": [
+            [
+                "7326e4fe.76a13c"
+            ]
+        ]
     }
 ]
