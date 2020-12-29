@@ -2877,6 +2877,7 @@
         "id": "1efd60ba.aebc9f",
         "type": "mqtt out",
         "z": "4e2c8d9b.9d5c84",
+        "d": true,
         "name": "",
         "topic": "mainrelay1/switch/zal_2/command",
         "qos": "0",
@@ -3062,6 +3063,7 @@
         "id": "d46a6af7.258a88",
         "type": "mqtt in",
         "z": "4e2c8d9b.9d5c84",
+        "d": true,
         "name": "",
         "topic": "mainrelay1/switch/zal_2/state",
         "qos": "0",
@@ -9316,6 +9318,8 @@
         "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n\n\n\nvar battery = null;\nvar voltage = null;\nvar linkquality=null;\nvar contact = null;\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"no state\"});\n\n\n\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.linkquality) {\n    if (data.linkquality > 100){\n    linkquality = {\"payload\": 4};\n    }\n    else if (data.linkquality > 80){\n    linkquality = {\"payload\": 3};\n    }\n    else if (data.linkquality > 50){\n    linkquality = {\"payload\": 2};\n    }\n    else if (data.linkquality > 30){\n    linkquality = {\"payload\": 1};\n    }\n    else {\n    linkquality = {\"payload\": 0};\n    }\n}\n\nif (data.contact) {\n    contact = {\"payload\": \"CLOSED\"};\n    node.status({fill:\"green\",shape:\"dot\",text:\"CLOSED\"}); \n}\nelse\n{\n    contact = {\"payload\": \"OPEN\"};\n    node.status({fill:\"red\",shape:\"dot\",text:\"OPEN\"}); \n}\n\nnode.send([ voltage, linkquality,battery,contact]);\n",
         "outputs": 4,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 1570,
         "y": 80,
         "wires": [
@@ -9329,8 +9333,7 @@
                 "f4d48e86.909f8"
             ],
             [
-                "198e877c.2b7719",
-                "8db582c2.5245a"
+                "198e877c.2b7719"
             ]
         ]
     },
@@ -9397,8 +9400,8 @@
         "qos": "0",
         "retain": "true",
         "broker": "5101c6e3.603738",
-        "x": 1830,
-        "y": 100,
+        "x": 1920,
+        "y": 225,
         "wires": []
     },
     {
@@ -13070,48 +13073,6 @@
         "wires": []
     },
     {
-        "id": "7ea881ae.0c1ca",
-        "type": "mqtt in",
-        "z": "e797dfd4.e67cc",
-        "name": "",
-        "topic": "Openhab_VAR/BedRoom/Auto_Temperature",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 170,
-        "y": 315,
-        "wires": [
-            [
-                "9b08dc93.b351c"
-            ]
-        ]
-    },
-    {
-        "id": "9b08dc93.b351c",
-        "type": "change",
-        "z": "e797dfd4.e67cc",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "BedRoom_Auto_Temperature",
-                "pt": "flow",
-                "to": "$number(payload)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 560,
-        "y": 315,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "2e97816a.9ce2be",
         "type": "function",
         "z": "e797dfd4.e67cc",
@@ -13738,7 +13699,7 @@
         "type": "debug",
         "z": "e797dfd4.e67cc",
         "name": "BedRoom_Heater2_set",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -13762,48 +13723,6 @@
         "x": 2418,
         "y": 2005,
         "wires": []
-    },
-    {
-        "id": "6bf78949.05fad8",
-        "type": "mqtt in",
-        "z": "e797dfd4.e67cc",
-        "name": "",
-        "topic": "Openhab_VAR/BedRoom/Auto_Temperature",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "5101c6e3.603738",
-        "x": 185,
-        "y": 720,
-        "wires": [
-            [
-                "9556cd8a.03451"
-            ]
-        ]
-    },
-    {
-        "id": "9556cd8a.03451",
-        "type": "change",
-        "z": "e797dfd4.e67cc",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "KidsRoom_Auto_Temperature",
-                "pt": "flow",
-                "to": "$number(payload)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 575,
-        "y": 720,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "1901fbd0.287ef4",
@@ -14195,7 +14114,7 @@
         "rules": [
             {
                 "t": "neq",
-                "v": "KidsRoom_Auto_Temperature",
+                "v": "BedRoom_Auto_Temperature",
                 "vt": "flow"
             }
         ],
@@ -14753,6 +14672,77 @@
         "wires": [
             [
                 "7326e4fe.76a13c"
+            ]
+        ]
+    },
+    {
+        "id": "7ea881ae.0c1ca",
+        "type": "mqtt in",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Auto_Temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 185,
+        "y": 690,
+        "wires": [
+            [
+                "9b08dc93.b351c"
+            ]
+        ]
+    },
+    {
+        "id": "9b08dc93.b351c",
+        "type": "change",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "BedRoom_Auto_Temperature",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 585,
+        "y": 690,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "615e12c4.2e512c",
+        "type": "inject",
+        "z": "4e2c8d9b.9d5c84",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "CLOSED",
+        "payloadType": "str",
+        "x": 1585,
+        "y": 255,
+        "wires": [
+            [
+                "8db582c2.5245a"
             ]
         ]
     }
