@@ -70,6 +70,20 @@
         "info": ""
     },
     {
+        "id": "818889d9.5aab28",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f965d1b2.a75",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": true,
+        "info": ""
+    },
+    {
         "id": "5101c6e3.603738",
         "type": "mqtt-broker",
         "name": "MQTT local",
@@ -1172,8 +1186,8 @@
         "y": 971,
         "wires": [
             [
-                "447c6467.858eac",
-                "979ee997.cf5348"
+                "979ee997.cf5348",
+                "8a58dfa2.b0c15"
             ]
         ]
     },
@@ -4584,9 +4598,11 @@
         "type": "function",
         "z": "5d7e112b.27504",
         "name": "Motion_sensor",
-        "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n\n\n\nvar battery = null;\nvar voltage = null;\nvar linkquality=null;\nvar lightswith = null;\nvar illuminance = {\"payload\": data.illuminance};\nvar occupancy = {\"payload\": data.occupancy};\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"no state\"});\n\n\n\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.linkquality) {\n    linkquality = {\"payload\": data.linkquality};\n}\n\nif (data.occupancy) {\n    node.status({fill:\"red\",shape:\"dot\",text:\"true\"});\n    lightswith = {\"payload\": \"ON\"};\n}\n\nelse {\n    node.status({fill:\"green\",shape:\"dot\",text:\"false\"});\n    lightswith = {\"payload\": \"OFF\"};\n}\n\noccupancy = {\"payload\": data.occupancy};\n\n\n\nnode.send([ voltage, linkquality,battery,occupancy,lightswith]);\n",
+        "func": "var payload = msg.payload;\nvar data = JSON.parse(payload);\n\n\n\nvar battery = null;\nvar voltage = null;\nvar linkquality=null;\nvar lightswith = null;\nvar illuminance = {\"payload\": data.illuminance};\nvar occupancy = {\"payload\": data.occupancy};\n\nnode.status({fill:\"grey\",shape:\"ring\",text:\"no state\"});\n\n\n\nif (data.battery) {\n    battery = {\"payload\": data.battery};\n}\nif (data.voltage) {\n    voltage = {\"payload\": data.voltage};\n}\nif (data.linkquality) {\n    if (data.linkquality > 100){\n    linkquality = {\"payload\": 4};\n    }\n    else if (data.linkquality > 80){\n    linkquality = {\"payload\": 3};\n    }\n    else if (data.linkquality > 50){\n    linkquality = {\"payload\": 2};\n    }\n    else if (data.linkquality > 30){\n    linkquality = {\"payload\": 1};\n    }\n    else {\n    linkquality = {\"payload\": 0};\n    }\n}\n\nif (data.occupancy) {\n    node.status({fill:\"red\",shape:\"dot\",text:\"true\"});\n    lightswith = {\"payload\": \"ON\"};\n}\n\nelse {\n    node.status({fill:\"green\",shape:\"dot\",text:\"false\"});\n    lightswith = {\"payload\": \"OFF\"};\n}\n\noccupancy = {\"payload\": data.occupancy};\n\n\n\nnode.send([ voltage, linkquality,battery,occupancy,lightswith]);\n",
         "outputs": 5,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 190,
         "y": 1020,
         "wires": [
@@ -5546,6 +5562,8 @@
         "func": "var myyear = msg.myyear;\nvar mymonthn = msg.mymonthn;\nvar mydom = msg.mydom;\nvar mytimes = msg.mytimes;\nquery = ``+myyear+`-`+mymonthn+`-`+mydom+` `+mytimes+``;\nmsg.payload = query;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 1200,
         "y": 40,
         "wires": [
@@ -6839,7 +6857,9 @@
             ],
             [
                 "47098a70.4cdd24",
-                "aeea9e7e.262da"
+                "aeea9e7e.262da",
+                "34da6b74.644214",
+                "8a8c63fa.07804"
             ]
         ]
     },
@@ -9412,7 +9432,9 @@
             ],
             [
                 "f71ad7e5.6d9dd8",
-                "deca8145.59272"
+                "deca8145.59272",
+                "f7451601.6d2928",
+                "830552db.c4847"
             ]
         ]
     },
@@ -10548,8 +10570,8 @@
         "y": 1455,
         "wires": [
             [
-                "4ff0b21d.58e6ec",
-                "ec9c6904.071228"
+                "ec9c6904.071228",
+                "55597125.5b31f"
             ]
         ]
     },
@@ -10672,11 +10694,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1318,
-        "y": 1270,
+        "x": 1115,
+        "y": 1260,
         "wires": [
             [
-                "bc7e02b0.d1f8c"
+                "8bfe2924.c8d77"
             ]
         ]
     },
@@ -10778,12 +10800,12 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1508,
+        "x": 1519,
         "y": 1360,
         "wires": [
             [
-                "b2985893.d58318",
-                "4f7fd523.580adc"
+                "4f7fd523.580adc",
+                "a99c6e89.2269f"
             ]
         ]
     },
@@ -10973,11 +10995,11 @@
         "qos": "0",
         "datatype": "auto",
         "broker": "5101c6e3.603738",
-        "x": 1194,
-        "y": 1483,
+        "x": 1080,
+        "y": 1485,
         "wires": [
             [
-                "bc7e02b0.d1f8c"
+                "4fc578fd.8f29"
             ]
         ]
     },
@@ -10990,8 +11012,8 @@
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 1773,
-        "y": 1385,
+        "x": 1845,
+        "y": 1455,
         "wires": []
     },
     {
@@ -11007,7 +11029,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1723,
+        "x": 1734,
         "y": 1325,
         "wires": []
     },
@@ -11442,11 +11464,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1319,
-        "y": 1727,
+        "x": 1085,
+        "y": 1710,
         "wires": [
             [
-                "2ba28d02.e23492"
+                "fb2692c4.59af08"
             ]
         ]
     },
@@ -11498,8 +11520,8 @@
         "y": 1817,
         "wires": [
             [
-                "55bbf115.3d0c",
-                "34d5f696.64953a"
+                "34d5f696.64953a",
+                "cab08ae5.666108"
             ]
         ]
     },
@@ -11512,8 +11534,8 @@
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 1774,
-        "y": 1842,
+        "x": 1815,
+        "y": 1890,
         "wires": []
     },
     {
@@ -11542,11 +11564,11 @@
         "qos": "0",
         "datatype": "auto",
         "broker": "5101c6e3.603738",
-        "x": 1195,
-        "y": 1940,
+        "x": 1065,
+        "y": 1942,
         "wires": [
             [
-                "2ba28d02.e23492"
+                "d0e1bc68.37b16"
             ]
         ]
     },
@@ -12089,8 +12111,8 @@
         "y": 1215,
         "wires": [
             [
-                "449683e4.0d153c",
-                "ea89cccc.dd69d"
+                "ea89cccc.dd69d",
+                "10e98af1.b6a7c5"
             ]
         ]
     },
@@ -12537,8 +12559,8 @@
         "y": 1061,
         "wires": [
             [
-                "f7c2fd52.db1c6",
-                "2d3526.e1714ada"
+                "2d3526.e1714ada",
+                "412896fe.2c51e8"
             ]
         ]
     },
@@ -12595,8 +12617,8 @@
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 1760,
-        "y": 1086,
+        "x": 1875,
+        "y": 1110,
         "wires": []
     },
     {
@@ -13097,8 +13119,8 @@
         "y": 1451,
         "wires": [
             [
-                "72e57d37.c11d84",
-                "f6973e00.6396"
+                "f6973e00.6396",
+                "681e2059.b7637"
             ]
         ]
     },
@@ -13111,8 +13133,8 @@
         "qos": "0",
         "retain": "false",
         "broker": "5101c6e3.603738",
-        "x": 1760,
-        "y": 1476,
+        "x": 1800,
+        "y": 1500,
         "wires": []
     },
     {
@@ -13856,6 +13878,1475 @@
         "reg": false,
         "x": 605,
         "y": 2355,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "34da6b74.644214",
+        "type": "mqtt out",
+        "z": "fc938117.ce447",
+        "name": "",
+        "topic": "Openhab_VAR/KidsRoom/Window1",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1565,
+        "y": 255,
+        "wires": []
+    },
+    {
+        "id": "8a8c63fa.07804",
+        "type": "mqtt out",
+        "z": "fc938117.ce447",
+        "name": "",
+        "topic": "Openhab_VAR/KidsRoom/Window2",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1580,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f7451601.6d2928",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Window1",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1505,
+        "y": 255,
+        "wires": []
+    },
+    {
+        "id": "830552db.c4847",
+        "type": "mqtt out",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Window2",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1505,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a905937d.f17438",
+        "type": "mqtt in",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Lamp1ON",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 1075,
+        "y": 285,
+        "wires": [
+            [
+                "a1dbcd86.dea448"
+            ]
+        ]
+    },
+    {
+        "id": "a1dbcd86.dea448",
+        "type": "mqtt out",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Lamp1",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1455,
+        "y": 285,
+        "wires": []
+    },
+    {
+        "id": "cd04ba42.7107d",
+        "type": "mqtt in",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Lamp2ON",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 1075,
+        "y": 375,
+        "wires": [
+            [
+                "a8efad72.01995"
+            ]
+        ]
+    },
+    {
+        "id": "a8efad72.01995",
+        "type": "mqtt out",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Lamp2",
+        "qos": "0",
+        "retain": "true",
+        "broker": "5101c6e3.603738",
+        "x": 1455,
+        "y": 375,
+        "wires": []
+    },
+    {
+        "id": "4fc578fd.8f29",
+        "type": "change",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Heater1_on_manual",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1393,
+        "y": 1485,
+        "wires": [
+            [
+                "bc7e02b0.d1f8c"
+            ]
+        ]
+    },
+    {
+        "id": "8bfe2924.c8d77",
+        "type": "switch",
+        "z": "13ce9b43.cfce65",
+        "name": "on_manual",
+        "property": "Heater1_on_manual",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1300,
+        "y": 1260,
+        "wires": [
+            [
+                "bc7e02b0.d1f8c"
+            ]
+        ]
+    },
+    {
+        "id": "d0e1bc68.37b16",
+        "type": "change",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Heater2_on_manual",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1377,
+        "y": 1943,
+        "wires": [
+            [
+                "2ba28d02.e23492"
+            ]
+        ]
+    },
+    {
+        "id": "fb2692c4.59af08",
+        "type": "switch",
+        "z": "13ce9b43.cfce65",
+        "name": "on_manual",
+        "property": "Heater2_on_manual",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1285,
+        "y": 1710,
+        "wires": [
+            [
+                "2ba28d02.e23492"
+            ]
+        ]
+    },
+    {
+        "id": "412896fe.2c51e8",
+        "type": "delay",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1635,
+        "y": 1095,
+        "wires": [
+            [
+                "f7c2fd52.db1c6"
+            ]
+        ]
+    },
+    {
+        "id": "681e2059.b7637",
+        "type": "delay",
+        "z": "e797dfd4.e67cc",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1560,
+        "y": 1515,
+        "wires": [
+            [
+                "72e57d37.c11d84"
+            ]
+        ]
+    },
+    {
+        "id": "a99c6e89.2269f",
+        "type": "delay",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1605,
+        "y": 1425,
+        "wires": [
+            [
+                "b2985893.d58318"
+            ]
+        ]
+    },
+    {
+        "id": "cab08ae5.666108",
+        "type": "delay",
+        "z": "13ce9b43.cfce65",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1665,
+        "y": 1845,
+        "wires": [
+            [
+                "55bbf115.3d0c"
+            ]
+        ]
+    },
+    {
+        "id": "10e98af1.b6a7c5",
+        "type": "delay",
+        "z": "4e2c8d9b.9d5c84",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1545,
+        "y": 1290,
+        "wires": [
+            [
+                "449683e4.0d153c"
+            ]
+        ]
+    },
+    {
+        "id": "8a58dfa2.b0c15",
+        "type": "delay",
+        "z": "fc938117.ce447",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1530,
+        "y": 1035,
+        "wires": [
+            [
+                "447c6467.858eac"
+            ]
+        ]
+    },
+    {
+        "id": "55597125.5b31f",
+        "type": "delay",
+        "z": "fc938117.ce447",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "3",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1515,
+        "y": 1515,
+        "wires": [
+            [
+                "4ff0b21d.58e6ec"
+            ]
+        ]
+    },
+    {
+        "id": "1ddb88e5.d87dd7",
+        "type": "function",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "var logs = context.get([\"log0\",\"log1\", \"log2\", \"log3\", \"log4\", \"log5\",\"log6\",\"log7\",\"log8\",\"log9\"])\nvar simpletime=global.get('simpletime2');\nlogs[9] = logs[8]\nlogs[8] = logs[7]\nlogs[7] = logs[6]\nlogs[6] = logs[5]\nlogs[5] = logs[4]\nlogs[4] = logs[3]\nlogs[3] = logs[2]\nlogs[2] = logs[1]\nlogs[1] = logs[0]\nvalue = msg.payload\nif (value == \"CLOSED\") {\n    value = \"закрыто\"\n}\nif (value == \"OPEN\") {\n    value = \"открыто\"\n}\nif (value == \"ON\") {\n    value = \"включен\"\n}\nif (value == \"OFF\") {\n    value = \"отключен\"\n}\n\nname = msg.topic\n\ntext = simpletime +\":\"+ name +\" \"+ value\nif (msg.payload) {\n    logs[0] = {\"payload\": text};\n\n}\n\ncontext.set([\"log0\",\"log1\", \"log2\", \"log3\", \"log4\", \"log5\",\"log6\",\"log7\",\"log8\",\"log9\"], [logs[0],logs[1],logs[2],logs[3],logs[4],logs[5],logs[6],logs[7],logs[8],logs[9]])\nnode.send(logs);",
+        "outputs": 10,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 885,
+        "y": 165,
+        "wires": [
+            [
+                "55a75059.9efe2"
+            ],
+            [
+                "181bd4b2.3e58fb"
+            ],
+            [
+                "14b8ec9e.b38d23"
+            ],
+            [
+                "a9ddb0e0.92e49"
+            ],
+            [
+                "80cb9392.82e2b"
+            ],
+            [
+                "86d934ad.1b9bc8"
+            ],
+            [
+                "d1a31652.f2f6c8"
+            ],
+            [
+                "2ec3c677.bcfe3a"
+            ],
+            [
+                "33d409cf.1edf46"
+            ],
+            [
+                "4fdc5be2.a0eee4"
+            ]
+        ]
+    },
+    {
+        "id": "55a75059.9efe2",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log0",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 1005,
+        "y": 120,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "181bd4b2.3e58fb",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log1",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 1020,
+        "y": 120,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "14b8ec9e.b38d23",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log2",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 1020,
+        "y": 150,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "a9ddb0e0.92e49",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log3",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 1035,
+        "y": 150,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "80cb9392.82e2b",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log4",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 1020,
+        "y": 150,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "86d934ad.1b9bc8",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log5",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 990,
+        "y": 165,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "d1a31652.f2f6c8",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log6",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 975,
+        "y": 180,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "2ec3c677.bcfe3a",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log7",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 990,
+        "y": 210,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "33d409cf.1edf46",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log8",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 990,
+        "y": 195,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "4fdc5be2.a0eee4",
+        "type": "mqtt out",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Logs/log9",
+        "qos": "",
+        "retain": "",
+        "broker": "5101c6e3.603738",
+        "x": 990,
+        "y": 210,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "7c214fb9.06fcb",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Home/Main_Door",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 190,
+        "y": 45,
+        "wires": [
+            [
+                "f355da21.c92518"
+            ]
+        ]
+    },
+    {
+        "id": "65afa626.ab4da8",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 570,
+        "y": 45,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "f355da21.c92518",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Входная дверь",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 45,
+        "wires": [
+            [
+                "65afa626.ab4da8"
+            ]
+        ]
+    },
+    {
+        "id": "132dd7d1.302e68",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/KidsRoom/Heater1_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 185,
+        "y": 83,
+        "wires": [
+            [
+                "548f40f7.7045"
+            ]
+        ]
+    },
+    {
+        "id": "3cc0eafe.2017f6",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 575,
+        "y": 83,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "548f40f7.7045",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Детская обогреватель 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 475,
+        "y": 83,
+        "wires": [
+            [
+                "3cc0eafe.2017f6"
+            ]
+        ]
+    },
+    {
+        "id": "7d1d7e2b.28a2a",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/KidsRoom/Heater2_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 210,
+        "y": 125,
+        "wires": [
+            [
+                "eac41c0e.a26f4"
+            ]
+        ]
+    },
+    {
+        "id": "909f8d72.8aaf6",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 555,
+        "y": 125,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "eac41c0e.a26f4",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Детская обогреватель 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 455,
+        "y": 125,
+        "wires": [
+            [
+                "909f8d72.8aaf6"
+            ]
+        ]
+    },
+    {
+        "id": "db3ba6d6.387538",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/LivingRoom/Heater1_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 195,
+        "y": 165,
+        "wires": [
+            [
+                "c5a0dcc0.0a06c"
+            ]
+        ]
+    },
+    {
+        "id": "417ce48a.b71b8c",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 540,
+        "y": 165,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "c5a0dcc0.0a06c",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Зал обогреватель 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 165,
+        "wires": [
+            [
+                "417ce48a.b71b8c"
+            ]
+        ]
+    },
+    {
+        "id": "bcac66f2.c6d368",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Heater1_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 185,
+        "y": 210,
+        "wires": [
+            [
+                "ffe340c0.f2186"
+            ]
+        ]
+    },
+    {
+        "id": "23379423.a0343c",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 540,
+        "y": 210,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "ffe340c0.f2186",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Кухня обогреватель 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 210,
+        "wires": [
+            [
+                "23379423.a0343c"
+            ]
+        ]
+    },
+    {
+        "id": "e4f21a9e.4d7cf8",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Heater2_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 185,
+        "y": 270,
+        "wires": [
+            [
+                "1eb8efa0.8d924"
+            ]
+        ]
+    },
+    {
+        "id": "359cb821.20eb58",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 540,
+        "y": 270,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "1eb8efa0.8d924",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Кухня обогреватель 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 270,
+        "wires": [
+            [
+                "359cb821.20eb58"
+            ]
+        ]
+    },
+    {
+        "id": "cbc2d7f5.85bb88",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Heater1_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 180,
+        "y": 315,
+        "wires": [
+            [
+                "e5eda91a.299d48"
+            ]
+        ]
+    },
+    {
+        "id": "a3288fcc.623ca",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 525,
+        "y": 315,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "e5eda91a.299d48",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Спальня обогреватель 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 425,
+        "y": 315,
+        "wires": [
+            [
+                "a3288fcc.623ca"
+            ]
+        ]
+    },
+    {
+        "id": "54a8f47b.590bec",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/BedRoom/Heater2_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 180,
+        "y": 375,
+        "wires": [
+            [
+                "41881697.2f8db8"
+            ]
+        ]
+    },
+    {
+        "id": "5e186d4c.a8ee64",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 525,
+        "y": 375,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "41881697.2f8db8",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Спальня обогреватель 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 425,
+        "y": 375,
+        "wires": [
+            [
+                "5e186d4c.a8ee64"
+            ]
+        ]
+    },
+    {
+        "id": "18c76867.909388",
+        "type": "inject",
+        "z": "f965d1b2.a75",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "d51a691c.3c4f08"
+            ]
+        ]
+    },
+    {
+        "id": "46f5134f.68bf7c",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 575,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f014c95c.5d2628",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 755,
+        "y": 90,
+        "wires": []
+    },
+    {
+        "id": "d04348cd.754fd8",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 135,
+        "wires": []
+    },
+    {
+        "id": "c6230fcd.23197",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 755,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "24ffa29.5d1c55e",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 225,
+        "wires": []
+    },
+    {
+        "id": "f724f466.99a268",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 725,
+        "y": 270,
+        "wires": []
+    },
+    {
+        "id": "c9934e7a.26e22",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 725,
+        "y": 315,
+        "wires": []
+    },
+    {
+        "id": "3d418808.af1958",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 725,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "9dd65cd2.6beb3",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c6c4accc.df8c3",
+        "type": "debug",
+        "z": "f965d1b2.a75",
+        "name": "9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 465,
+        "wires": []
+    },
+    {
+        "id": "d51a691c.3c4f08",
+        "type": "function",
+        "z": "f965d1b2.a75",
+        "d": true,
+        "name": "",
+        "func": "var logs = context.get([\"log0\",\"log1\", \"log2\", \"log3\", \"log4\", \"log5\",\"log6\",\"log7\",\"log8\",\"log9\"])\n\nvar count = context.get('count');\ncount = count || 0;\n\n\n\n\nif (msg.payload) {\n    //logs[count] = {\"payload\": msg.payload};\n    logs[count] = {\"payload\": count};\n\n}\n\n\n\n\nif (count > 8){\n    count = 0\n}\nelse{\n    count += 1;\n}\ncontext.set('count',count);\ncontext.set([\"log0\",\"log1\", \"log2\", \"log3\", \"log4\", \"log5\",\"log6\",\"log7\",\"log8\",\"log9\"], [logs[0],logs[1],logs[2],logs[3],logs[4],logs[5],logs[6],logs[7],logs[8],logs[9]])\nnode.send(logs);",
+        "outputs": 10,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 390,
+        "y": 210,
+        "wires": [
+            [
+                "46f5134f.68bf7c"
+            ],
+            [
+                "f014c95c.5d2628"
+            ],
+            [
+                "d04348cd.754fd8"
+            ],
+            [
+                "c6230fcd.23197"
+            ],
+            [
+                "24ffa29.5d1c55e"
+            ],
+            [
+                "f724f466.99a268"
+            ],
+            [
+                "c9934e7a.26e22"
+            ],
+            [
+                "3d418808.af1958"
+            ],
+            [
+                "9dd65cd2.6beb3"
+            ],
+            [
+                "c6c4accc.df8c3"
+            ]
+        ]
+    },
+    {
+        "id": "7f7bce3.12c903",
+        "type": "mqtt in",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "topic": "Openhab_VAR/Kitchen/Boiler_on",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5101c6e3.603738",
+        "x": 175,
+        "y": 450,
+        "wires": [
+            [
+                "267f571.1ecb7a8"
+            ]
+        ]
+    },
+    {
+        "id": "bd808d3f.c7b3c",
+        "type": "rbe",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 540,
+        "y": 450,
+        "wires": [
+            [
+                "1ddb88e5.d87dd7"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "267f571.1ecb7a8",
+        "type": "change",
+        "z": "818889d9.5aab28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Кухня бойлер",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 450,
+        "wires": [
+            [
+                "bd808d3f.c7b3c"
+            ]
+        ]
+    },
+    {
+        "id": "8ac98262.ad5f7",
+        "type": "simpletime",
+        "z": "8bc58de.6c7987",
+        "name": "",
+        "mydate": true,
+        "myymd": true,
+        "myyear": true,
+        "mymonth": true,
+        "mymonthn": true,
+        "mydom": true,
+        "mydoy": true,
+        "myday": true,
+        "myhourpm": true,
+        "myhour": true,
+        "mytime": true,
+        "mytimes": true,
+        "myminute": true,
+        "myminutes": true,
+        "mysecond": true,
+        "mymillis": true,
+        "myepoch": true,
+        "myrawdate": true,
+        "mypm": true,
+        "x": 1000,
+        "y": 90,
+        "wires": [
+            [
+                "ae0e0361.05a5d"
+            ]
+        ]
+    },
+    {
+        "id": "949e57e7.57ad78",
+        "type": "inject",
+        "z": "8bc58de.6c7987",
+        "name": "",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 780,
+        "y": 90,
+        "wires": [
+            [
+                "8ac98262.ad5f7"
+            ]
+        ]
+    },
+    {
+        "id": "ae0e0361.05a5d",
+        "type": "function",
+        "z": "8bc58de.6c7987",
+        "name": "curent time",
+        "func": "var myyear = msg.myyear;\nvar mymonthn = msg.mymonthn;\nvar mydom = msg.mydom;\nvar mytimes = msg.mytimes;\nquery = ``+mytimes+``;\nmsg.payload = query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1200,
+        "y": 90,
+        "wires": [
+            [
+                "436accf4.b19f54"
+            ]
+        ]
+    },
+    {
+        "id": "436accf4.b19f54",
+        "type": "change",
+        "z": "8bc58de.6c7987",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "simpletime2",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1410,
+        "y": 90,
         "wires": [
             []
         ]
