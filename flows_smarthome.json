@@ -1187,7 +1187,7 @@
         "wires": [
             [
                 "979ee997.cf5348",
-                "8a58dfa2.b0c15"
+                "447c6467.858eac"
             ]
         ]
     },
@@ -2321,8 +2321,8 @@
         "type": "time-switch",
         "z": "8bc58de.6c7987",
         "name": "",
-        "lat": "",
-        "lon": "",
+        "lat": "42.74377283671802",
+        "lon": "133.1237630957936",
         "startTime": "05:00",
         "endTime": "7:30",
         "startOffset": 0,
@@ -2341,10 +2341,10 @@
         "type": "time-switch",
         "z": "8bc58de.6c7987",
         "name": "",
-        "lat": "",
-        "lon": "",
+        "lat": "42.74377283671802",
+        "lon": "133.1237630957936",
         "startTime": "7:30",
-        "endTime": "16:00",
+        "endTime": "17:00",
         "startOffset": 0,
         "endOffset": "0",
         "x": 370,
@@ -2361,9 +2361,9 @@
         "type": "time-switch",
         "z": "8bc58de.6c7987",
         "name": "",
-        "lat": "",
-        "lon": "",
-        "startTime": "16:00",
+        "lat": "42.74377283671802",
+        "lon": "133.1237630957936",
+        "startTime": "17:00",
         "endTime": "21:00",
         "startOffset": 0,
         "endOffset": "0",
@@ -2381,8 +2381,8 @@
         "type": "time-switch",
         "z": "8bc58de.6c7987",
         "name": "",
-        "lat": "",
-        "lon": "",
+        "lat": "42.74377283671802",
+        "lon": "133.1237630957936",
         "startTime": "21:00",
         "endTime": "05:00",
         "startOffset": 0,
@@ -10570,7 +10570,7 @@
         "wires": [
             [
                 "ec9c6904.071228",
-                "55597125.5b31f"
+                "4ff0b21d.58e6ec"
             ]
         ]
     },
@@ -10697,7 +10697,7 @@
         "y": 1260,
         "wires": [
             [
-                "8bfe2924.c8d77"
+                "bc7e02b0.d1f8c"
             ]
         ]
     },
@@ -10804,7 +10804,7 @@
         "wires": [
             [
                 "4f7fd523.580adc",
-                "a99c6e89.2269f"
+                "b2985893.d58318"
             ]
         ]
     },
@@ -11467,7 +11467,7 @@
         "y": 1710,
         "wires": [
             [
-                "fb2692c4.59af08"
+                "2ba28d02.e23492"
             ]
         ]
     },
@@ -11520,7 +11520,7 @@
         "wires": [
             [
                 "34d5f696.64953a",
-                "cab08ae5.666108"
+                "55bbf115.3d0c"
             ]
         ]
     },
@@ -12111,7 +12111,7 @@
         "wires": [
             [
                 "ea89cccc.dd69d",
-                "10e98af1.b6a7c5"
+                "449683e4.0d153c"
             ]
         ]
     },
@@ -12559,7 +12559,7 @@
         "wires": [
             [
                 "2d3526.e1714ada",
-                "412896fe.2c51e8"
+                "f7c2fd52.db1c6"
             ]
         ]
     },
@@ -13119,7 +13119,7 @@
         "wires": [
             [
                 "f6973e00.6396",
-                "681e2059.b7637"
+                "72e57d37.c11d84"
             ]
         ]
     },
@@ -14021,31 +14021,6 @@
         ]
     },
     {
-        "id": "8bfe2924.c8d77",
-        "type": "switch",
-        "z": "13ce9b43.cfce65",
-        "name": "on_manual",
-        "property": "Heater1_on_manual",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "ON",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 1300,
-        "y": 1260,
-        "wires": [
-            [
-                "bc7e02b0.d1f8c"
-            ]
-        ]
-    },
-    {
         "id": "d0e1bc68.37b16",
         "type": "change",
         "z": "13ce9b43.cfce65",
@@ -14069,192 +14044,6 @@
         "wires": [
             [
                 "2ba28d02.e23492"
-            ]
-        ]
-    },
-    {
-        "id": "fb2692c4.59af08",
-        "type": "switch",
-        "z": "13ce9b43.cfce65",
-        "name": "on_manual",
-        "property": "Heater2_on_manual",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "ON",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 1285,
-        "y": 1710,
-        "wires": [
-            [
-                "2ba28d02.e23492"
-            ]
-        ]
-    },
-    {
-        "id": "412896fe.2c51e8",
-        "type": "delay",
-        "z": "e797dfd4.e67cc",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1635,
-        "y": 1095,
-        "wires": [
-            [
-                "f7c2fd52.db1c6"
-            ]
-        ]
-    },
-    {
-        "id": "681e2059.b7637",
-        "type": "delay",
-        "z": "e797dfd4.e67cc",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1560,
-        "y": 1515,
-        "wires": [
-            [
-                "72e57d37.c11d84"
-            ]
-        ]
-    },
-    {
-        "id": "a99c6e89.2269f",
-        "type": "delay",
-        "z": "13ce9b43.cfce65",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1605,
-        "y": 1425,
-        "wires": [
-            [
-                "b2985893.d58318"
-            ]
-        ]
-    },
-    {
-        "id": "cab08ae5.666108",
-        "type": "delay",
-        "z": "13ce9b43.cfce65",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1665,
-        "y": 1845,
-        "wires": [
-            [
-                "55bbf115.3d0c"
-            ]
-        ]
-    },
-    {
-        "id": "10e98af1.b6a7c5",
-        "type": "delay",
-        "z": "4e2c8d9b.9d5c84",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1545,
-        "y": 1290,
-        "wires": [
-            [
-                "449683e4.0d153c"
-            ]
-        ]
-    },
-    {
-        "id": "8a58dfa2.b0c15",
-        "type": "delay",
-        "z": "fc938117.ce447",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1530,
-        "y": 1035,
-        "wires": [
-            [
-                "447c6467.858eac"
-            ]
-        ]
-    },
-    {
-        "id": "55597125.5b31f",
-        "type": "delay",
-        "z": "fc938117.ce447",
-        "name": "",
-        "pauseType": "random",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "3",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1515,
-        "y": 1515,
-        "wires": [
-            [
-                "4ff0b21d.58e6ec"
             ]
         ]
     },
